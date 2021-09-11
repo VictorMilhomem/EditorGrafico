@@ -41,41 +41,24 @@ class MainFrame extends JFrame {
                         {
                             case KeyEvent.VK_R: // Cria um retangulo
                                 Rect2D r = new Rect2D(x,y, w,h, Color.BLACK,Color.CYAN, false);
-                                figs.add(r); break;
+                                figs.add(r);
+                                break;
                             case KeyEvent.VK_E: // Cria uma elipse
                                 Ellipse e = new Ellipse(x, y, w, h, Color.BLACK, Color.GREEN, false);
-                                figs.add(e); break;
+                                figs.add(e);
+                                break;
                             case KeyEvent.VK_UP: // aumenta altura
-                                for(Figure fig: figs){
-                                    if(fig.getSel())
-                                    {
-                                        fig.resizeHeight(RESIZE);
-                                    }
-                                } break;
+                                resizeFigure(1, RESIZE, 'y');
+                                break;
                             case KeyEvent.VK_DOWN: // diminui altura
-                                for(Figure fig: figs){
-                                    if(fig.getSel())
-                                    {
-                                        fig.resizeHeight(-RESIZE);
-                                    }
-                                } break;
-
+                                resizeFigure(-1, RESIZE, 'y');
+                                break;
                             case KeyEvent.VK_LEFT: // diminui largura
-                                for(Figure fig: figs){
-                                    if(fig.getSel())
-                                    {
-                                        fig.resizeWidth(-RESIZE);
-                                    }
-                                } break;
-
+                                resizeFigure(-1, RESIZE, 'x');
+                                break;
                             case KeyEvent.VK_RIGHT: // aumenta largura
-                                for(Figure fig: figs){
-                                    if(fig.getSel())
-                                    {
-                                        fig.resizeWidth(RESIZE);
-                                    }
-                                } break;
-
+                                resizeFigure(1, RESIZE, 'x');
+                                break;
                             default: break;
                         }
                         repaint();
@@ -142,7 +125,8 @@ class MainFrame extends JFrame {
 
     }
 
-    public void paint(Graphics g) {
+    public void paint(Graphics g)
+    {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setBackground(Color.white);
         g2d.clearRect(0, 0, getWidth(), getHeight());
@@ -150,8 +134,27 @@ class MainFrame extends JFrame {
         RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHints(rh);
 
-        for (Figure fig: this.figs) {
+        for (Figure fig: this.figs)
+        {
             fig.paint(g);
+        }
+    }
+
+    public void resizeFigure(int dir, int value, char axis)
+    {
+        for(Figure fig: figs)
+        {
+            if(fig.getSel())
+            {
+                switch (axis)
+                {
+                    case 'y':
+                        fig.resizeHeight(dir * value); break;
+                    case 'x':
+                        fig.resizeWidth(dir * value); break;
+                    default: break;
+                }
+            }
         }
     }
 
