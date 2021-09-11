@@ -6,8 +6,8 @@ import java.awt.geom.Ellipse2D.Double;
 
 public class Ellipse extends Figure
 {
-    public Ellipse (int x, int y, int w, int h, Color c, Color bkg) {
-        super(x, y, w, h, c, bkg);
+    public Ellipse (int x, int y, int w, int h, Color c, Color bkg, boolean selected) {
+        super(x, y, w, h, c, bkg, selected);
     }
 
     void print () {

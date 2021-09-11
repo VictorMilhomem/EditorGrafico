@@ -4,8 +4,9 @@ import java.awt.*;
 
 public abstract class Figure implements IVisible{
     protected int x, y, h, w;
+    private boolean selected;
     protected Color c, bkg;
-    public Figure(int x, int y, int w, int h, Color c, Color bkg)
+    public Figure(int x, int y, int w, int h, Color c, Color bkg, boolean selected)
     {
         this.x = x;
         this.y = y;
@@ -13,6 +14,7 @@ public abstract class Figure implements IVisible{
         this.w = w;
         this.c = c;
         this.bkg = bkg;
+        this.selected = selected;
     }
 
     public boolean clicked(int x, int y) {
@@ -35,10 +37,23 @@ public abstract class Figure implements IVisible{
         return this.h;
     }
 
+    public boolean getSel(){ return this.selected; }
+    public void setSel(boolean selected){ this.selected = selected; }
+
     public void drag(int dx, int dy)
     {
         this.x += dx;
         this.y += dy;
+    }
+
+    public void resizeWidth(int dw)
+    {
+        this.w += dw;
+    }
+
+    public void resizeHeight(int dh)
+    {
+        this.h += dh;
     }
 
 }

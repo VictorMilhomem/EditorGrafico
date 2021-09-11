@@ -12,8 +12,9 @@ public class Main {
 }
 
 class MainFrame extends JFrame {
-    protected final int WIDTH = 640;
-    protected final int HEIGHT = 640;
+    private final int WIDTH = 640;
+    private final int HEIGHT = 640;
+    private final int RESIZE = 5;
     ArrayList<Figure> figs = new ArrayList<>();
     Random rand = new Random();
     Point prevPt;
@@ -33,15 +34,47 @@ class MainFrame extends JFrame {
                         int y = rand.nextInt(600);
                         int w = 100;
                         int h = 100;
-                        if (evt.getKeyChar() == 'r')
+
+                        switch (evt.getKeyCode())
                         {
-                            Rect2D r = new Rect2D(x,y, w,h, Color.BLACK,Color.CYAN);
-                            figs.add(r);
-                        }
-                        else if (evt.getKeyChar() == 'e')
-                        {
-                            Ellipse e = new Ellipse(x, y, w, h, Color.BLACK, Color.GREEN);
-                            figs.add(e);
+                            case KeyEvent.VK_R: // Cria um retangulo
+                                Rect2D r = new Rect2D(x,y, w,h, Color.BLACK,Color.CYAN, false);
+                                figs.add(r); break;
+                            case KeyEvent.VK_E: // Cria uma elipse
+                                Ellipse e = new Ellipse(x, y, w, h, Color.BLACK, Color.GREEN, false);
+                                figs.add(e); break;
+                            case KeyEvent.VK_UP: // aumenta altura
+                                for(Figure fig: figs){
+                                    if(fig.getSel())
+                                    {
+                                        fig.resizeHeight(RESIZE);
+                                    }
+                                } break;
+                            case KeyEvent.VK_DOWN: // diminui altura
+                                for(Figure fig: figs){
+                                    if(fig.getSel())
+                                    {
+                                        fig.resizeHeight(-RESIZE);
+                                    }
+                                } break;
+
+                            case KeyEvent.VK_LEFT: // diminui largura
+                                for(Figure fig: figs){
+                                    if(fig.getSel())
+                                    {
+                                        fig.resizeWidth(-RESIZE);
+                                    }
+                                } break;
+
+                            case KeyEvent.VK_RIGHT: // aumenta largura
+                                for(Figure fig: figs){
+                                    if(fig.getSel())
+                                    {
+                                        fig.resizeWidth(RESIZE);
+                                    }
+                                } break;
+
+                            default: break;
                         }
                         repaint();
 
@@ -53,7 +86,13 @@ class MainFrame extends JFrame {
                 new MouseAdapter() {
                     public void mousePressed (MouseEvent evt) {
                         prevPt = evt.getPoint();
-                        System.out.println("prev"+prevPt);
+                        System.out.println("prev"+prevPt); // debug
+                        for (Figure fig: figs) {
+                            if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
+                            {
+                                fig.setSel(true);
+                            }
+                        }
                     }
                 }
         );
@@ -63,7 +102,7 @@ class MainFrame extends JFrame {
                     {
                         Graphics g = getGraphics();
                         Point currentPt = evt.getPoint();
-                        System.out.println("current"+currentPt);
+                        System.out.println("current"+currentPt); // debug
                         for (Figure fig: figs) {
                             if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
                             {

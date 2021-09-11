@@ -4,9 +4,9 @@ import java.awt.*;
 
 public class Rect2D extends Figure
 {
-    public Rect2D(int x, int y, int w, int h, Color c, Color bkg)
+    public Rect2D(int x, int y, int w, int h, Color c, Color bkg, boolean selected)
     {
-        super(x, y, w, h, c, bkg);
+        super(x, y, w, h, c, bkg, selected);
     }
 
     public void paint(Graphics g)
