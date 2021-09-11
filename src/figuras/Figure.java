@@ -9,7 +9,7 @@ public abstract class Figure implements IVisible {
     protected int x, y, h, w;
     protected Color c, bkg;
     private boolean selected;
-    
+
     public Figure(int x, int y, int w, int h, Color c, Color bkg, boolean selected)
     {
         this.x = x;
