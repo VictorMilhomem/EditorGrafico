@@ -68,7 +68,7 @@ fabric.properties
 
 ### Intellij Patch ###
 
- *.iml
+*.iml
 # modules.xml
 # .idea/misc.xml
 # *.ipr
