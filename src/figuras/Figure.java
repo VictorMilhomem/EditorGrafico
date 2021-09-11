@@ -7,8 +7,9 @@ import java.awt.*;
 
 public abstract class Figure implements IVisible {
     protected int x, y, h, w;
-    private boolean selected;
     protected Color c, bkg;
+    private boolean selected;
+    private int id;
     public Figure(int x, int y, int w, int h, Color c, Color bkg, boolean selected)
     {
         this.x = x;

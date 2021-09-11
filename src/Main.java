@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import javax.swing.*;
 import figuras.*;
@@ -95,6 +96,10 @@ class MainFrame extends JFrame {
                                     if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
                                     {
                                         fig.setSel(true);
+                                        // troca a coordenada z(a ordem de desenho)
+                                        int index = figs.indexOf(fig);
+                                        int lastIndex = figs.size() - 1;
+                                        Collections.swap(figs, index, lastIndex);
                                     }
                                 } break;
 
@@ -118,7 +123,7 @@ class MainFrame extends JFrame {
                         Point currentPt = evt.getPoint();
                         System.out.println("current"+currentPt); // debug
                         for (Figure fig: figs) {
-                            if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
+                            if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()) && fig.getSel() )
                             {
                                 fig.drag((int) (currentPt.getX()-prevPt.getX()), (int)(currentPt.getY()-prevPt.getY()));
                             }
