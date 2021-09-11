@@ -1,4 +1,4 @@
-package figuras;
+package IVisible;
 
 import java.awt.*;
 

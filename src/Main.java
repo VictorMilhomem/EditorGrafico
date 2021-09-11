@@ -90,7 +90,7 @@ class MainFrame extends JFrame {
                         System.out.println("prev"+prevPt); // debug
                         switch(evt.getButton())
                         {
-                            case MouseEvent.BUTTON1:
+                            case MouseEvent.BUTTON1: // seleciona a figura com o botão esquerdo
                                 for (Figure fig: figs) {
                                     if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
                                     {
@@ -98,7 +98,7 @@ class MainFrame extends JFrame {
                                     }
                                 } break;
 
-                            case MouseEvent.BUTTON3:
+                            case MouseEvent.BUTTON3: // desseleciona a figura com o botão direito
                                 for (Figure fig: figs) {
                                     if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
                                     {

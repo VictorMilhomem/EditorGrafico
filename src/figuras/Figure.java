@@ -1,9 +1,11 @@
 package figuras;
+import IVisible.IVisible;
+
 import java.awt.*;
 
 
 
-public abstract class Figure implements IVisible{
+public abstract class Figure implements IVisible {
     protected int x, y, h, w;
     private boolean selected;
     protected Color c, bkg;
