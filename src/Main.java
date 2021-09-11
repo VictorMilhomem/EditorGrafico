@@ -48,16 +48,16 @@ class MainFrame extends JFrame {
                                 figs.add(e);
                                 break;
                             case KeyEvent.VK_UP: // aumenta altura
-                                resizeFigure(1, RESIZE, 'y');
+                                resizeFigure(1, 'y');
                                 break;
                             case KeyEvent.VK_DOWN: // diminui altura
-                                resizeFigure(-1, RESIZE, 'y');
+                                resizeFigure(-1, 'y');
                                 break;
                             case KeyEvent.VK_LEFT: // diminui largura
-                                resizeFigure(-1, RESIZE, 'x');
+                                resizeFigure(-1, 'x');
                                 break;
                             case KeyEvent.VK_RIGHT: // aumenta largura
-                                resizeFigure(1, RESIZE, 'x');
+                                resizeFigure(1, 'x');
                                 break;
                             default: break;
                         }
@@ -140,7 +140,7 @@ class MainFrame extends JFrame {
         }
     }
 
-    public void resizeFigure(int dir, int value, char axis)
+    private void resizeFigure(int dir, char axis)
     {
         for(Figure fig: figs)
         {
@@ -149,9 +149,9 @@ class MainFrame extends JFrame {
                 switch (axis)
                 {
                     case 'y':
-                        fig.resizeHeight(dir * value); break;
+                        fig.resizeHeight(dir * RESIZE); break;
                     case 'x':
-                        fig.resizeWidth(dir * value); break;
+                        fig.resizeWidth(dir * RESIZE); break;
                     default: break;
                 }
             }
