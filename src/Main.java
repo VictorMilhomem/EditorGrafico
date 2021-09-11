@@ -15,9 +15,10 @@ class MainFrame extends JFrame {
     private final int WIDTH = 640;
     private final int HEIGHT = 640;
     private final int RESIZE = 5;
-    ArrayList<Figure> figs = new ArrayList<>();
+    private ArrayList<Figure> figs = new ArrayList<>();
     Random rand = new Random();
-    Point prevPt;
+    private Point prevPt;
+
     public MainFrame () {
         this.addWindowListener (
                 new WindowAdapter() {
@@ -87,11 +88,24 @@ class MainFrame extends JFrame {
                     public void mousePressed (MouseEvent evt) {
                         prevPt = evt.getPoint();
                         System.out.println("prev"+prevPt); // debug
-                        for (Figure fig: figs) {
-                            if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
-                            {
-                                fig.setSel(true);
-                            }
+                        switch(evt.getButton())
+                        {
+                            case MouseEvent.BUTTON1:
+                                for (Figure fig: figs) {
+                                    if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
+                                    {
+                                        fig.setSel(true);
+                                    }
+                                } break;
+
+                            case MouseEvent.BUTTON3:
+                                for (Figure fig: figs) {
+                                    if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()))
+                                    {
+                                        fig.setSel(false);
+                                    }
+                                } break;
+                            default: break;
                         }
                     }
                 }
@@ -134,8 +148,8 @@ class MainFrame extends JFrame {
         for (Figure fig: this.figs) {
             fig.paint(g);
         }
-
     }
+
 
 }
 

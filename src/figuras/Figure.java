@@ -2,6 +2,7 @@ package figuras;
 import java.awt.*;
 
 
+
 public abstract class Figure implements IVisible{
     protected int x, y, h, w;
     private boolean selected;
