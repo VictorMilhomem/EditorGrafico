@@ -15,7 +15,6 @@ public class Main {
 class MainFrame extends JFrame {
     private final int WIDTH = 640;
     private final int HEIGHT = 640;
-    private final int RESIZE = 5;
     private ArrayList<Figure> figs = new ArrayList<>();
     Random rand = new Random();
     private Point prevPt;
@@ -40,11 +39,11 @@ class MainFrame extends JFrame {
                         switch (evt.getKeyCode())
                         {
                             case KeyEvent.VK_R: // Cria um retangulo
-                                Rect2D r = new Rect2D(x,y, w,h, Color.BLACK,Color.CYAN, false);
+                                Rect2D r = new Rect2D(x,y, w,h, Color.BLACK,Color.WHITE, false);
                                 figs.add(r);
                                 break;
                             case KeyEvent.VK_E: // Cria uma elipse
-                                Ellipse e = new Ellipse(x, y, w, h, Color.BLACK, Color.GREEN, false);
+                                Ellipse e = new Ellipse(x, y, w, h, Color.BLACK, Color.WHITE, false);
                                 figs.add(e);
                                 break;
                             case KeyEvent.VK_UP: // aumenta altura
@@ -58,6 +57,12 @@ class MainFrame extends JFrame {
                                 break;
                             case KeyEvent.VK_RIGHT: // aumenta largura
                                 resizeFigure(1, 'x');
+                                break;
+                            case KeyEvent.VK_Q: // mudar a cor de contorno
+                                changeColor('f');
+                                break;
+                            case KeyEvent.VK_W: // mudar a cor de fundo
+                                changeColor('b');
                                 break;
                             default: break;
                         }
@@ -142,6 +147,7 @@ class MainFrame extends JFrame {
 
     private void resizeFigure(int dir, char axis)
     {
+        final int RESIZE = 5;
         for(Figure fig: figs)
         {
             if(fig.getSel())
@@ -152,6 +158,28 @@ class MainFrame extends JFrame {
                         fig.resizeHeight(dir * RESIZE); break;
                     case 'x':
                         fig.resizeWidth(dir * RESIZE); break;
+                    default: break;
+                }
+            }
+        }
+    }
+
+    private void changeColor(char bkg_fg)
+    {
+        for (Figure fig: figs)
+        {
+            if(fig.getSel())
+            {
+                JColorChooser colorChooser = new JColorChooser();
+                Color newColor = JColorChooser.showDialog(null, "Escolha a cor", Color.black);
+                switch(bkg_fg)
+                {
+                    case 'f': // Foreground Color
+                        fig.setForegroundColor(newColor);
+                        break;
+                    case 'b': // Background Color
+                        fig.setBkgColor(newColor);
+                        break;
                     default: break;
                 }
             }
