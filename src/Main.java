@@ -13,11 +13,12 @@ public class Main {
 }
 
 class MainFrame extends JFrame {
-    private final int WIDTH = 640;
-    private final int HEIGHT = 640;
+    static final int WIDTH = 720;
+    static final int HEIGHT = 640;
     private ArrayList<Figure> figs = new ArrayList<>();
     Random rand = new Random();
     private Point prevPt;
+    private Color BackgroundColor = Color.white;
 
     public MainFrame () {
         this.addWindowListener (
@@ -32,9 +33,10 @@ class MainFrame extends JFrame {
                 new KeyAdapter() {
                     public void keyPressed (KeyEvent evt) {
                         int x = rand.nextInt(600);
-                        int y = rand.nextInt(600);
+                        int y = rand.nextInt(500);
                         int w = 100;
                         int h = 100;
+                        Graphics g = getGraphics();
 
                         switch (evt.getKeyCode())
                         {
@@ -45,6 +47,9 @@ class MainFrame extends JFrame {
                             case KeyEvent.VK_E: // Cria uma elipse
                                 Ellipse e = new Ellipse(x, y, w, h, Color.BLACK, Color.WHITE, false);
                                 figs.add(e);
+                                break;
+                            case KeyEvent.VK_DELETE:
+                                figs.removeIf(Figure::getSel);
                                 break;
                             case KeyEvent.VK_UP: // aumenta altura
                                 resizeFigure(1, 'y');
@@ -64,10 +69,15 @@ class MainFrame extends JFrame {
                             case KeyEvent.VK_W: // mudar a cor de fundo
                                 changeColor('b');
                                 break;
+                            case KeyEvent.VK_F: // mudar a cor de fundo da tela
+                                JColorChooser colorChooser = new JColorChooser();
+                                BackgroundColor =
+                                        JColorChooser.showDialog(null,"Escolha a cor de fundo da tela",Color.black);
+                                break;
                             default: break;
                         }
                         repaint();
-
+                        g.dispose();
                     }
                 }
         );
@@ -113,6 +123,7 @@ class MainFrame extends JFrame {
                         for (Figure fig: figs) {
                             if(fig.clicked((int)prevPt.getX(), (int)prevPt.getY()) && fig.getSel() )
                             {
+                                // Arrasta a figura pela tela
                                 fig.drag((int) (currentPt.getX()-prevPt.getX()), (int)(currentPt.getY()-prevPt.getY()));
                             }
                         }
@@ -126,6 +137,7 @@ class MainFrame extends JFrame {
 
         this.setTitle("Editor Gráfico");
         this.setSize(WIDTH, HEIGHT);
+        this.setResizable(false);
         this.setVisible(true);
 
     }
@@ -133,7 +145,7 @@ class MainFrame extends JFrame {
     public void paint(Graphics g)
     {
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setBackground(Color.white);
+        g2d.setBackground(BackgroundColor);
         g2d.clearRect(0, 0, getWidth(), getHeight());
 
         RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -174,10 +186,10 @@ class MainFrame extends JFrame {
                 Color newColor = JColorChooser.showDialog(null, "Escolha a cor", Color.black);
                 switch(bkg_fg)
                 {
-                    case 'f': // Foreground Color
+                    case 'f': // Cor de contorno
                         fig.setForegroundColor(newColor);
                         break;
-                    case 'b': // Background Color
+                    case 'b': // Cor de fundo
                         fig.setBkgColor(newColor);
                         break;
                     default: break;
@@ -185,7 +197,6 @@ class MainFrame extends JFrame {
             }
         }
     }
-
 
 }
 

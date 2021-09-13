@@ -13,6 +13,13 @@ public class Rect2D extends Figure
     {
         Graphics2D g2d = (Graphics2D) g;
 
+        if(this.selected)
+        {
+            // Cor quando o objeto esta selecionado
+            g2d.setPaint(Color.DARK_GRAY);
+            g2d.fillRect(this.x-3, this.y-3, this.w+6, this.h+6);
+        }
+
         // background
         g2d.setPaint(this.bkg);
         g2d.fillRect(this.x, this.y, this.w, this.h);
@@ -20,6 +27,7 @@ public class Rect2D extends Figure
         // contorno
         g2d.setPaint(this.c);
         g2d.drawRect(this.x, this.y, this.w, this.h);
+
     }
 
 

@@ -8,7 +8,7 @@ import java.awt.*;
 public abstract class Figure implements IVisible {
     protected int x, y, h, w;
     protected Color c, bkg;
-    private boolean selected;
+    protected boolean selected;
 
     public Figure(int x, int y, int w, int h, Color c, Color bkg, boolean selected)
     {
@@ -37,39 +37,42 @@ public abstract class Figure implements IVisible {
         return this.h;
     }
 
-    // Foreground Color getters and setters
-    public Color getForegroundColor(){ return  this.c; }
+    // Foreground Color setter
     public void setForegroundColor(Color newColor)
     {
         this.c = newColor;
     }
 
-    // Background Color getters and setters
-    public Color getBkgColor(){ return this.bkg; }
+    // Background Color setter
     public void setBkgColor(Color newColor)
     {
         this.bkg = newColor;
     }
 
+    // Getters e setters para o atributo selected
     public boolean getSel(){ return this.selected; }
     public void setSel(boolean selected){ this.selected = selected; }
 
+    // Checa se a figura foi clicada
     public boolean clicked(int x, int y)
     {
         return (this.x<=x && x<=this.x+this.w && this.y<=y && y<=this.y+this.h);
     }
 
+    // Move a figura
     public void drag(int dx, int dy)
     {
         this.x += dx;
         this.y += dy;
     }
 
+    // Altera o atributo largura
     public void resizeWidth(int dw)
     {
         this.w += dw;
     }
 
+    // Altera o atributo altura
     public void resizeHeight(int dh)
     {
         this.h += dh;

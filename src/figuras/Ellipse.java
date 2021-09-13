@@ -18,12 +18,20 @@ public class Ellipse extends Figure
     public void paint (Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
 
+        if(this.selected)
+        {
+            // Cor quando o objeto esta selecionado
+            g2d.setPaint(Color.DARK_GRAY);
+            g2d.fillOval(this.x-3, this.y-3, this.w+6, this.h+6);
+        }
+
         // background
         g2d.setColor(this.bkg);
         g2d.fillOval(this.x, this.y, this.w, this.h);
 
+
         // contorno
-        g2d.setColor(this.c);
+        g2d.setPaint(this.c);
         g2d.draw(new Ellipse2D.Double(this.x,this.y, this.w,this.h));
     }
 
