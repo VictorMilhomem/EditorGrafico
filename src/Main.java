@@ -48,6 +48,10 @@ class MainFrame extends JFrame {
                                 Ellipse e = new Ellipse(x, y, w, h, Color.BLACK, Color.WHITE, false);
                                 figs.add(e);
                                 break;
+                            case KeyEvent.VK_T: // Cria uma Triangulo
+                                Triangle t = new Triangle(x, y, w, h, Color.BLACK, Color.WHITE, false);
+                                figs.add(t);
+                                break;
                             case KeyEvent.VK_DELETE:
                                 figs.removeIf(Figure::getSel);
                                 break;
