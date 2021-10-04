@@ -1,16 +1,14 @@
 package figuras;
-import IVisible.IVisible;
 
 import java.awt.*;
 
 
 
-public abstract class Figure implements IVisible {
-    protected int x, y, h, w;
+public abstract class Figure{
+    protected int x, y, h, w, id;
     protected Color c, bkg;
-    protected boolean selected;
 
-    public Figure(int x, int y, int w, int h, Color c, Color bkg, boolean selected)
+    public Figure(int x, int y, int w, int h, Color c, Color bkg)
     {
         this.x = x;
         this.y = y;
@@ -18,24 +16,9 @@ public abstract class Figure implements IVisible {
         this.w = w;
         this.c = c;
         this.bkg = bkg;
-        this.selected = selected;
     }
 
-    public int getX(){
-        return this.x;
-    }
-    public int getY(){
-        return this.y;
-    }
-
-    public int getWidth()
-    {
-        return this.w;
-    }
-    public int getHeight()
-    {
-        return this.h;
-    }
+    public abstract void paint(Graphics g, boolean selected);
 
     // Foreground Color setter
     public void setForegroundColor(Color newColor)
@@ -48,10 +31,6 @@ public abstract class Figure implements IVisible {
     {
         this.bkg = newColor;
     }
-
-    // Getters e setters para o atributo selected
-    public boolean getSel(){ return this.selected; }
-    public void setSel(boolean selected){ this.selected = selected; }
 
     // Checa se a figura foi clicada
     public boolean clicked(int x, int y)
